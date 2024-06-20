@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">SuitMediaTest</string>
+    <string name="selected_name">%1$s %2$s</string>
+    <string name="fill_the_palindrome_text">Fill the palindrome text</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
+    <string name="ispalindrome">isPalindrome</string>
+    <string name="notpalindrome">notPalindrome</string>
+    <string name="check">Check</string>
+    <string name="next">Next</string>
+    <string name="name">Name</string>
+    <string name="palindrome">Palindrome</string>
+    <string name="welcome">Welcome</string>
+    <string name="choose_a_user">Choose a User</string>
+    <string name="check_palindrome">Check Palindrome</string>
+    <string name="user_selected">User Selected</string>
+    <string name="the_list_is_empty">The list is empty</string>
 </resources>

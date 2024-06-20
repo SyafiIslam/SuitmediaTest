@@ -14,11 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.syafi.suitmediatest.data.remote.response.UserData
+import com.syafi.suitmediatest.ui.theme.Neutral50
+import com.syafi.suitmediatest.ui.theme.Type
 
 @Composable
 fun UserDataCard(userData: UserData, onCardClick: () -> Unit = {}) {
@@ -26,7 +29,8 @@ fun UserDataCard(userData: UserData, onCardClick: () -> Unit = {}) {
         onClick = onCardClick,
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.elevatedCardElevation(6.dp),
-        modifier = Modifier.padding(bottom = 8.dp)
+        modifier = Modifier.padding(bottom = 8.dp),
+        colors = CardDefaults.cardColors(containerColor = Neutral50)
     ) {
         Row(
             Modifier
@@ -38,18 +42,18 @@ fun UserDataCard(userData: UserData, onCardClick: () -> Unit = {}) {
             AsyncImage(
                 model = userData.avatar,
                 contentDescription = userData.last_name,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(60.dp)
-                    .clip(RoundedCornerShape(5.dp))
+                    .clip(RoundedCornerShape(10.dp))
                 )
 
             Column(Modifier.weight(1f)) {
                 Text(
                     text = "${userData.first_name} ${userData.last_name}",
-                    fontWeight = FontWeight(600),
-                    fontSize = 16.sp
+                    style= Type.textlgSemiBold()
                 )
-                Text(text = userData.email, fontSize = 14.sp)
+                Text(text = userData.email, style = Type.textsmRegular())
             }
         }
     }

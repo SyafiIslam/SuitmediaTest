@@ -8,7 +8,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.syafi.suitmediatest.data.paging.UserPagingSource
-import com.syafi.suitmediatest.data.remote.response.UserData
 import com.syafi.suitmediatest.data.repository.Repository
 import com.syafi.suitmediatest.domain.useCase.GetAllUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +27,7 @@ class ChooseUserViewModel @Inject constructor(
 
 
     val userDataPager= Pager(
-        PagingConfig(pageSize = 5)
+        PagingConfig(pageSize = 10)
     ) {
         UserPagingSource(repo)
     }.flow.cachedIn(viewModelScope)

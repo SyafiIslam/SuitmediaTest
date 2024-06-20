@@ -4,38 +4,42 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.syafi.suitmediatest.feature.component.layout.CustomScaffold
 import com.syafi.suitmediatest.feature.navigation.Navigation
-import com.syafi.suitmediatest.ui.theme.SuitMediaTestTheme
 import com.syafi.suitmediatest.util.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-        private val showTopBarList= listOf(
-            Route.WELCOME_ROUTE,
-            Route.CHOOSE_USER_ROUTE
-        )
+    private val showTopBarList = listOf(
+        Route.WELCOME_ROUTE,
+        Route.CHOOSE_USER_ROUTE
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
 
-            val navController= rememberNavController()
+            val (onNavigateUp, setOnNavigateUp) = remember {
+                mutableStateOf<(() -> Unit)?>(null)
+            }
+
+            val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
 
-            SuitMediaTestTheme {
-                CustomScaffold(
-                    navController = navController,
-                    isShowTopBar = checkRoute(currentRoute.toString(), showTopBarList),
-                    appBarTitle= getRouteName(currentRoute.toString())
-                ) {
-                    Navigation(navHostController = navController)
-                }
+            CustomScaffold(
+                navController = navController,
+                isShowTopBar = checkRoute(currentRoute.toString(), showTopBarList),
+                appBarTitle = getRouteName(currentRoute.toString()),
+                onNavigateUp= { onNavigateUp?.let { it() } }
+            ) {
+                Navigation(navHostController = navController, setOnNavigateUp)
             }
         }
     }

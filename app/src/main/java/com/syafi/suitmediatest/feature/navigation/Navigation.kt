@@ -11,7 +11,8 @@ import com.syafi.suitmediatest.feature.palindrome.PalindromeScreen
 import com.syafi.suitmediatest.util.Route
 
 @Composable
-fun Navigation(navHostController: NavHostController) {
+fun Navigation(navHostController: NavHostController, setOnNavigateUp: ((() -> Unit)?) -> Unit) {
+
     NavHost(navController = navHostController, startDestination = Route.PALINDROME_SCREEN) {
         composable(Route.PALINDROME_SCREEN) {
             PalindromeScreen(navHostController)
@@ -22,7 +23,8 @@ fun Navigation(navHostController: NavHostController) {
             WelcomeScreen(
                 navController = navHostController,
                 name = args.userName,
-                selectedUserName = args.selectedUsername
+                selectedUserName = args.selectedUsername,
+                setOnNavigateUp
             )
         }
         composable<Route.CHOOSE_USER_SCREEN> {
@@ -30,7 +32,7 @@ fun Navigation(navHostController: NavHostController) {
             val args= it.toRoute<Route.CHOOSE_USER_SCREEN>()
 
 
-            ChooseUserScreen(navController = navHostController, userName = args.userName)
+            ChooseUserScreen(navController = navHostController, userName = args.userName, setOnNavigateUp = setOnNavigateUp)
         }
     }
 }

@@ -18,6 +18,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
+import com.syafi.suitmediatest.ui.theme.Neutral50
+import com.syafi.suitmediatest.ui.theme.Primary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,6 +61,8 @@ fun <T : Any>CustomLazyColumn(
         }
 
         PullToRefreshContainer(
+            containerColor = Primary,
+            contentColor = Neutral50,
             state = pullToRefreshState,
             modifier = Modifier
                 .align(Alignment.TopCenter),

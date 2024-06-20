@@ -8,11 +8,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.syafi.suitmediatest.R
 import com.syafi.suitmediatest.feature.component.view.CustomButton
 import com.syafi.suitmediatest.feature.component.view.CustomTextField
 import com.syafi.suitmediatest.feature.palindrome.PalindromeViewModel
+import com.syafi.suitmediatest.ui.theme.Secondary
 import com.syafi.suitmediatest.util.Route
 
 @Composable
@@ -26,7 +29,7 @@ fun PalindromeForm(navController: NavController, viewModel: PalindromeViewModel)
             onValueChange = {
                 viewModel.setName(it)
             },
-            label = "Name",
+            label = stringResource(R.string.name),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -35,7 +38,7 @@ fun PalindromeForm(navController: NavController, viewModel: PalindromeViewModel)
             onValueChange = {
                 viewModel.setPalindrome(it)
             },
-            label = "Palindrome",
+            label = stringResource(R.string.palindrome),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -45,15 +48,18 @@ fun PalindromeForm(navController: NavController, viewModel: PalindromeViewModel)
                 if (viewModel.palindrome.value.isNotEmpty()) {
                     Toast.makeText(
                         context,
-                        if (viewModel.checkPalindrome(viewModel.palindrome.value.lowercase())) "isPalindrome"
-                        else "notPalindrome",
+                        if (viewModel.checkPalindrome(viewModel.palindrome.value.lowercase())) context.getString(
+                            R.string.ispalindrome
+                        )
+                        else context.getString(R.string.notpalindrome),
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Toast.makeText(context, "Fill the palindrome text", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,
+                        context.getString(R.string.fill_the_palindrome_text), Toast.LENGTH_SHORT).show()
                 }
             },
-            text = "Check",
+            text = stringResource(R.string.check),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
@@ -64,13 +70,15 @@ fun PalindromeForm(navController: NavController, viewModel: PalindromeViewModel)
                 if (viewModel.name.value.isNotEmpty()) {
                     navController.navigate(Route.WELCOME_SCREEN(userName = viewModel.name.value.trim()))
                 } else {
-                    Toast.makeText(context, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,
+                        context.getString(R.string.name_cannot_be_empty), Toast.LENGTH_SHORT).show()
                 }
             },
-            text = "Next",
+            text = stringResource(R.string.next),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .height(48.dp),
+            color = Secondary
         )
     }
 }

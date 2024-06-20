@@ -10,10 +10,11 @@ fun CustomScaffold(
     isShowTopBar: Boolean = false,
     navController: NavController,
     appBarTitle: String,
+    onNavigateUp: () -> Unit?,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
-        topBar = { if (isShowTopBar) TopBar(navController = navController, title = appBarTitle) },
+        topBar = { if (isShowTopBar) TopBar(navController = navController, title = appBarTitle, onNavigateUp= onNavigateUp) },
         content = content
     )
 }
